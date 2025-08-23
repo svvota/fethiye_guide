@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "name": "Fethiye Old Town",
+    "description": "Charming streets with shops and cafes. Great for an evening walk.",
+    "address": "Fethiye Merkez",
+    "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "category": "Sightseeing",
+    "lat": 36.6229,
+    "lon": 29.114
+  },
+  {
+    "id": "2",
+    "name": "\u00d6l\u00fcdeniz Beach",
+    "description": "Famous turquoise lagoon\u2014perfect for swimming and photos.",
+    "address": "\u00d6l\u00fcdeniz, Fethiye",
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "category": "Nature",
+    "lat": 36.5494,
+    "lon": 29.1156
+  },
+  {
+    "id": "3",
+    "name": "Kayak\u00f6y Ruins",
+    "description": "Historic ghost town with stunning stone houses and trails.",
+    "address": "Kayak\u00f6y, Fethiye",
+    "imageUrl": "https://images.unsplash.com/photo-1523419409543-a7e06b3c7b51",
+    "category": "History",
+    "lat": 36.5756,
+    "lon": 29.0925
+  }
+]

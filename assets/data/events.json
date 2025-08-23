@@ -1,0 +1,20 @@
+[
+  {
+    "id": "e1",
+    "title": "Sunset Boat Tour",
+    "description": "2-hour cruise with scenic views and soft music.",
+    "date": "2025-09-10T18:30:00.000Z",
+    "location": "Fethiye Marina",
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+    "category": "Tour"
+  },
+  {
+    "id": "e2",
+    "title": "Local Food Festival",
+    "description": "Taste traditional dishes and meet local chefs.",
+    "date": "2025-09-20T12:00:00.000Z",
+    "location": "Paspatur Square",
+    "imageUrl": "https://images.unsplash.com/photo-1523419409543-a7e06b3c7b51",
+    "category": "Festival"
+  }
+]
