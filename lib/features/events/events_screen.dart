@@ -23,8 +23,8 @@ class _EventsScreenState extends State<EventsScreen> {
     super.initState();
     _future = EventRepo().getEvents();
     _future.then((list) {
-      final s = <String>{ for (final e in list) e.category };
-      setState(() => categories = ['ALL', ...s.toList()]);
+      final s = <String>{for (final e in list) e.category};
+      setState(() => categories = ['ALL', ...s]);
     });
   }
 
@@ -38,7 +38,9 @@ class _EventsScreenState extends State<EventsScreen> {
           Padding(
             padding: const EdgeInsets.all(12),
             child: TextField(
-              decoration: InputDecoration(prefixIcon: const Icon(Icons.search), hintText: loc.searchEventsHint),
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: loc.searchEventsHint),
               onChanged: (v) => setState(() => query = v.toLowerCase()),
             ),
           ),
@@ -68,17 +70,26 @@ class _EventsScreenState extends State<EventsScreen> {
             child: FutureBuilder<List<EventItem>>(
               future: _future,
               builder: (context, snap) {
-                if (!snap.hasData) return const Center(child: CircularProgressIndicator());
+                if (!snap.hasData)
+                  return const Center(child: CircularProgressIndicator());
                 var list = snap.data!;
                 if (query.isNotEmpty) {
-                  list = list.where((e) => e.title.toLowerCase().contains(query) || e.location.toLowerCase().contains(query)).toList();
+                  list = list
+                      .where((e) =>
+                          e.title.toLowerCase().contains(query) ||
+                          e.location.toLowerCase().contains(query))
+                      .toList();
                 }
                 if (selectedCategory != 'ALL') {
-                  list = list.where((e) => e.category == selectedCategory).toList();
+                  list = list
+                      .where((e) => e.category == selectedCategory)
+                      .toList();
                 }
                 if (list.isEmpty) return Center(child: Text(loc.noEventsMatch));
                 return RefreshIndicator(
-                  onRefresh: () async { setState(() {}); },
+                  onRefresh: () async {
+                    setState(() {});
+                  },
                   child: ListView.builder(
                     itemCount: list.length,
                     itemBuilder: (_, i) => EventCard(
@@ -95,5 +106,3 @@ class _EventsScreenState extends State<EventsScreen> {
     );
   }
 }
-
-

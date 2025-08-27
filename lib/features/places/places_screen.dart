@@ -30,8 +30,25 @@ class _PlacesScreenState extends State<PlacesScreen> {
     _future = PlaceRepo().getPlaces();
     _future.then((list) {
       final s = <String>{ for (final p in list) p.category };
-      setState(() => categories = ['ALL', ...s.toList()]);
+      setState(() => categories = ['ALL', ...s]);
     });
+  }
+
+  Future<void> _toggleNearMe() async {
+    final pos = await LocationService().getPosition();
+    if (pos != null) {
+      if (mounted) {
+        setState(() { 
+          nearMe = !nearMe; 
+          userLat = pos.latitude; 
+          userLon = pos.longitude; 
+        });
+      }
+    } else {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location unavailable')));
+      }
+    }
   }
 
   @override
@@ -76,7 +93,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
               children: [
                 Expanded(
                   child: DropdownButtonFormField<String>(
-                    value: sort,
+                    initialValue: sort,
                     items: const [
                       DropdownMenuItem(value: 'name', child: Text('Sort by name')),
                       DropdownMenuItem(value: 'distance', child: Text('Sort by distance')),
@@ -87,12 +104,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
                 const SizedBox(width: 8),
                 FilledButton.tonal(
                   onPressed: () async {
-                    final pos = await LocationService().getPosition();
-                    if (pos != null) {
-                      setState(() { nearMe = !nearMe; userLat = pos.latitude; userLon = pos.longitude; });
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Location unavailable')));
-                    }
+                    await _toggleNearMe();
                   },
                   child: Text(nearMe ? 'Near me: ON' : 'Near me: OFF'),
                 ),
@@ -109,7 +121,7 @@ class _PlacesScreenState extends State<PlacesScreen> {
                 itemBuilder: (_, i) {
                   final r = radiusOptions[i];
                   final selected = r == radiusKm;
-                  return ChoiceChip(label: Text('${r} km'), selected: selected, onSelected: (_) => setState(() => radiusKm = r));
+                  return ChoiceChip(label: Text('$r km'), selected: selected, onSelected: (_) => setState(() => radiusKm = r));
                 },
                 separatorBuilder: (_, __) => const SizedBox(width: 8),
                 itemCount: radiusOptions.length,

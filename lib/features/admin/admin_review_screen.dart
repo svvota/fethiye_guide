@@ -30,15 +30,24 @@ class _AdminReviewScreenState extends State<AdminReviewScreen> {
   }
 
   Future<void> _approve(String type, Map<String, dynamic> obj) async {
-    await _store.appendJsonItem(type == 'place' ? 'approved_places.json' : 'approved_events.json', obj);
+    await _store.appendJsonItem(
+        type == 'place' ? 'approved_places.json' : 'approved_events.json', obj);
     setState(() {
-      if (type == 'place') placeSubs.remove(obj); else eventSubs.remove(obj);
+      if (type == 'place') {
+        placeSubs.remove(obj);
+      } else {
+        eventSubs.remove(obj);
+      }
     });
   }
 
   Future<void> _decline(String type, Map<String, dynamic> obj) async {
     setState(() {
-      if (type == 'place') placeSubs.remove(obj); else eventSubs.remove(obj);
+      if (type == 'place') {
+        placeSubs.remove(obj);
+      } else {
+        eventSubs.remove(obj);
+      }
     });
   }
 
@@ -51,40 +60,52 @@ class _AdminReviewScreenState extends State<AdminReviewScreen> {
         child: ListView(
           padding: const EdgeInsets.all(12),
           children: [
-            const Text('Pending Places', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            const Text('Pending Places',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             ...placeSubs.map((p) => Card(
-              child: ListTile(
-                title: Text(p['name'] ?? 'Unnamed'),
-                subtitle: Text(p['address'] ?? ''),
-                trailing: Wrap(spacing: 8, children: [
-                  IconButton(icon: const Icon(Icons.close), onPressed: () => _decline('place', p)),
-                  IconButton(icon: const Icon(Icons.check), onPressed: () => _approve('place', p)),
-                ]),
-              ),
-            )),
+                  child: ListTile(
+                    title: Text(p['name'] ?? 'Unnamed'),
+                    subtitle: Text(p['address'] ?? ''),
+                    trailing: Wrap(spacing: 8, children: [
+                      IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => _decline('place', p)),
+                      IconButton(
+                          icon: const Icon(Icons.check),
+                          onPressed: () => _approve('place', p)),
+                    ]),
+                  ),
+                )),
             const SizedBox(height: 16),
-            const Text('Pending Events', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            const Text('Pending Events',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
             const SizedBox(height: 8),
             ...eventSubs.map((e) => Card(
-              child: ListTile(
-                title: Text(e['title'] ?? 'Untitled'),
-                subtitle: Text(e['location'] ?? ''),
-                trailing: Wrap(spacing: 8, children: [
-                  IconButton(icon: const Icon(Icons.close), onPressed: () => _decline('event', e)),
-                  IconButton(icon: const Icon(Icons.check), onPressed: () => _approve('event', e)),
-                ]),
-              ),
-            )),
+                  child: ListTile(
+                    title: Text(e['title'] ?? 'Untitled'),
+                    subtitle: Text(e['location'] ?? ''),
+                    trailing: Wrap(spacing: 8, children: [
+                      IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () => _decline('event', e)),
+                      IconButton(
+                          icon: const Icon(Icons.check),
+                          onPressed: () => _approve('event', e)),
+                    ]),
+                  ),
+                )),
             const SizedBox(height: 16),
             const Divider(),
-            const Text('Approved (Local)', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-            ...approvedPlaces.map((p) => ListTile(title: Text('Place: ${p['name']}'))),
-            ...approvedEvents.map((e) => ListTile(title: Text('Event: ${e['title']}'))),
+            const Text('Approved (Local)',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            ...approvedPlaces
+                .map((p) => ListTile(title: Text('Place: ${p['name']}'))),
+            ...approvedEvents
+                .map((e) => ListTile(title: Text('Event: ${e['title']}'))),
           ],
         ),
       ),
     );
   }
 }
-

@@ -11,7 +11,11 @@ class LocationService {
       if (permission == LocationPermission.denied) return null;
     }
     if (permission == LocationPermission.deniedForever) return null;
-    return Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    return Geolocator.getCurrentPosition(
+      locationSettings: const LocationSettings(
+        accuracy: LocationAccuracy.high,
+      ),
+    );
   }
 
   static double distanceInKm(double lat1, double lon1, double lat2, double lon2) {

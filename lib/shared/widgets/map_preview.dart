@@ -9,14 +9,12 @@ class MapPreview extends StatelessWidget {
   const MapPreview({super.key, required this.lat, required this.lon, required this.label, this.zoom = 13});
 
   String get _imgUrl {
-    final marker = '\$lat,\$lon,red-pushpin';
-    return 'https://staticmap.openstreetmap.de/staticmap.php?center=\$lat,\$lon&zoom=\$zoom&size=800x400&markers=\$marker';
+    return 'https://staticmap.openstreetmap.de/staticmap.php?center=\$lat,\$lon&zoom=\$zoom&size=800x400&markers=\$lat,\$lon,red-pushpin';
     // For production volume, consider a paid static maps service.
   }
 
   Future<void> _openMaps() async {
-    final q = Uri.encodeComponent('\$lat,\$lon (\$label)');
-    final uri = Uri.parse('https://www.google.com/maps/search/?api=1&query=\$q');
+    final uri = Uri.parse('https://www.google.com/maps/search/?api=1&query=\$lat,\$lon (\$label)');
     if (await canLaunchUrl(uri)) {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     }
@@ -47,8 +45,8 @@ class MapPreview extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: Colors.black54, borderRadius: BorderRadius.circular(8),
                 ),
-                child: Row(
-                  children: const [
+                child: const Row(
+                  children: [
                     Icon(Icons.open_in_new, color: Colors.white, size: 16),
                     SizedBox(width: 6),
                     Text('Open Map', style: TextStyle(color: Colors.white)),

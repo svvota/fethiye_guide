@@ -17,15 +17,22 @@ class FavoritesStore {
   Future<void> togglePlace(String id) async {
     final p = await SharedPreferences.getInstance();
     final set = (p.getStringList(_kPlacesKey) ?? const <String>[]).toSet();
-    if (set.contains(id)) set.remove(id); else set.add(id);
+    if (set.contains(id)) {
+      set.remove(id);
+    } else {
+      set.add(id);
+    }
     await p.setStringList(_kPlacesKey, set.toList());
   }
 
   Future<void> toggleEvent(String id) async {
     final p = await SharedPreferences.getInstance();
     final set = (p.getStringList(_kEventsKey) ?? const <String>[]).toSet();
-    if (set.contains(id)) set.remove(id); else set.add(id);
+    if (set.contains(id)) {
+      set.remove(id);
+    } else {
+      set.add(id);
+    }
     await p.setStringList(_kEventsKey, set.toList());
   }
 }
-
