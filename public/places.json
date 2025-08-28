@@ -1,0 +1,12 @@
+[
+  {
+    "id": "1",
+    "name": "Fethiye Old Town",
+    "description": "Charming streets with shops and cafes.",
+    "address": "Fethiye Merkez",
+    "imageUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+    "category": "Sightseeing",
+    "lat": 36.6229,
+    "lon": 29.114
+  }
+]
